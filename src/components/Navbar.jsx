@@ -1,8 +1,17 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const navItems = [
     { name: 'Goals', href: '#goals' },
@@ -13,11 +22,15 @@ const Navbar = () => {
   ]
 
   return (
-    <nav className="fixed w-full bg-white/80 backdrop-blur-sm z-50 shadow-sm">
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${
+      scrolled 
+        ? 'bg-gray-900/90 backdrop-blur-sm shadow-lg' 
+        : 'bg-transparent'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <span className="text-2xl font-bold text-gray-900">SYNCHRONIX</span>
+            <span className="text-2xl font-bold text-white">SYNCHRONIX</span>
           </div>
           
           {/* Desktop menu */}
@@ -27,7 +40,7 @@ const Navbar = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                  className="text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   {item.name}
                 </a>
@@ -39,9 +52,9 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none transition-colors"
             >
-              {isOpen ? <X /> : <Menu />}
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
@@ -54,7 +67,7 @@ const Navbar = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-600 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-300 hover:text-white hover:bg-white/10 block px-3 py-2 rounded-md text-base font-medium transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}

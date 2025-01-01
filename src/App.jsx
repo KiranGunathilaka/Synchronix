@@ -2,11 +2,11 @@ import { useState } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Goals from './components/Goals'
-// import Timeline from './components/Timeline'
-// import Team from './components/Team'
-// import Capabilities from './components/Capabilities'
-// import Contact from './components/Contact'
-// import Footer from './components/Footer'
+import Timeline from './components/Timeline'
+//import Team from './components/Team'
+import Capabilities from './components/Capabilities'
+import Contact from './components/Contact'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -15,12 +15,12 @@ function App() {
       <main>
         <Hero />
         <Goals />
-        {/* <Capabilities />
+        <Capabilities />
         <Timeline />
-        <Team />
-        <Contact /> */}
+        {/* <Team /> */}
+        <Contact />
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   )
 }
